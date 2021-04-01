@@ -11,6 +11,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="{{ asset('owl/dist/assets/owl.carousel.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('owl/dist/assets/owl.theme.default.min.css') }}">
 
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
@@ -31,18 +33,14 @@
 			<div class="container max-w-4xl mx-auto pt-16 md:pt-32 text-center break-normal">
 				<!--Title-->
 					<p class="text-white font-extrabold text-3xl md:text-5xl">
-						@if ($user == null)
-                            PIXI
-                        @else
+						@auth
                             {{ Auth::user()->name }}
-                        @endif
+                        @else
+                            PIXI
+                        @endauth
 					</p>
 					<p class="text-xl md:text-2xl text-gray-500">
-                        @if ($user == null)
-                            Think | Capture | Innovate
-                        @else
-                            PIXI
-                        @endif
+                        Think | Capture | Innovate
                     </p>
 			</div>
             @if ($user == null)
@@ -75,11 +73,11 @@
 		<div class="container px-4 md:px-0 max-w-6xl mx-auto -mt-32">
 			<div class="mx-0 sm:mx-6">
 				<!--Nav-->
-				@if ($user == null)
-                    @include('guest-navigation')
-                @else
+                @auth
                     @livewire('navigation-menu')
-                @endif
+                @else
+                    @include('guest-navigation')
+                @endauth
 
                 <main>
                     @yield('content')
@@ -119,8 +117,14 @@
 	</footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
+	<script src={{ asset('owl/dist/owl.carousel.min.js') }}></script>
+    <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
 	<script src="https://unpkg.com/tippy.js@4"></script>
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel();
+        });
+    </script>
 	<script>
 		//Init tooltips
 		tippy('.avatar')

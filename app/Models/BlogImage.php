@@ -12,11 +12,11 @@ class BlogImage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'image',
+        'name', 'description', 'images',
     ];
 
     public function setFilenamesAttributes($value) {
-        $this->attributes['image'] = json_encode($value);
+        $this->attributes['images'] = json_encode($value);
     }
 
     public function users()

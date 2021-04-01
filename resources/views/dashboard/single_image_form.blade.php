@@ -8,6 +8,15 @@
                 <div class="p-4 border-b-2"> <span class="text-lg font-bold text-gray-600">Add documents</span> </div>
                 <div class="p-3">
                     <form action="/store_single_image/{{ Auth::user()->id }}" method="post" enctype="multipart/form-data">
+                        @if ($errors->any())
+                            <div>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li class="text-red-500">{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         @csrf
                         <div class="mb-2">
                             <span class="text-sm">Name</span>

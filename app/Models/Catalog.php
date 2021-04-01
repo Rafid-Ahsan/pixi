@@ -10,11 +10,11 @@ class Catalog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'image',
+        'name', 'images',
     ];
 
     public function setFilenamesAttributes($value) {
-        $this->attributes['image'] = json_encode($value);
+        $this->attributes['images'] = json_encode($value);
     }
 
     public function users()

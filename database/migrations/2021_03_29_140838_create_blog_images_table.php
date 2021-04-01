@@ -17,8 +17,8 @@ class CreateBlogImagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('team_id');
-            $table->string('name');
-            $table->string('description');
+            $table->string('title');
+            $table->longText('description');
             $table->text('image');
             $table->timestamps();
 

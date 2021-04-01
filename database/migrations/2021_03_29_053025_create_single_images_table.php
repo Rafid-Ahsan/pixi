@@ -17,7 +17,7 @@ class CreateSingleImagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('team_id')->default(1);
-            $table->string('name');
+            $table->string('title');
             $table->string('description')->nullable()->default('This is a beatiful Image');
             $table->text('image');
             $table->timestamps();

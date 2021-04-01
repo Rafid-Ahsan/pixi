@@ -15,7 +15,7 @@
           <div class="flex lg:flex-grow items-center" id="example-navbar-info">
             <ul class="flex flex-col lg:flex-row list-none ml-auto">
               <li class="nav-item">
-                <a href="/login" class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-800 hover:opacity-75">
+                <a href="{{ url('login') }}" class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-gray-800 hover:opacity-75">
                   Login
                 </a>
               </li>

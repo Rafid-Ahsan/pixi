@@ -9,6 +9,15 @@
                 <div class="p-3">
                     <form action="/store_catalog/{{ Auth::user()->id }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @if ($errors->any())
+                            <div>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li class="text-red-500">{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <div class="mb-2">
                             <span class="text-sm">Name</span>
                             <input type="text" name="name" :value="old('name')" required autofocus class="h-12 px-3 w-full border-gray-200 border rounded focus:outline-none focus:border-gray-300">

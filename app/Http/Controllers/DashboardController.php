@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -19,8 +20,34 @@ class DashboardController extends Controller
     }
 
     public function index() {
+        $blog = DB::table('users')
+            ->join('blog_images', 'users.id', '=', 'blog_images.user_id')
+            ->join('teams', 'blog_images.team_id', '=', 'teams.id')
+            ->select('blog_images.*', 'users.profile_photo_path', 'users.name', 'teams.name as team_name')
+            ->orderBy('blog_images.created_at', 'desc')
+            ->first();
+
+        $singles = DB::table('users')
+            ->join('single_images', 'users.id', '=', 'single_images.user_id')
+            ->join('teams', 'single_images.team_id', '=', 'teams.id')
+            ->select('single_images.*', 'users.profile_photo_path', 'users.name', 'teams.name as team_name')
+            ->orderBy('single_images.created_at', 'desc')
+            ->limit(6)
+            ->get();
+
+        $catalogs = DB::table('users')
+            ->join('catalogs', 'users.id', '=', 'catalogs.user_id')
+            ->join('teams', 'catalogs.team_id', '=', 'teams.id')
+            ->select('catalogs.*', 'users.profile_photo_path', 'users.name', 'teams.name as team_name')
+            ->orderBy('catalogs.created_at', 'desc')
+            ->limit(12)
+            ->get();
+
         return view('dashboard', [
-            'user'=> $this->init_cover()
+            'user' => $this->init_cover(),
+            'blog' => $blog,
+            'singles' => $singles,
+            'catalogs' => $catalogs
         ]);
     }
 
@@ -31,11 +58,11 @@ class DashboardController extends Controller
     }
 
     public function store_single_image(Request $request) {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'description' => 'nullable',
-        //     'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ]);
+        $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+            'image' => 'required|image',
+        ]);
 
         $single_image = new SingleImage();
         $imageName = time().'.'.$request->image->extension();
@@ -46,7 +73,7 @@ class DashboardController extends Controller
 
         $single_image->user_id = $request->id;
         $single_image->team_id = Auth::user()->currentTeam->id;
-        $single_image->name = $request->name;
+        $single_image->title = $request->name;
         $single_image->description = $request->description;
 
         $single_image->save();
@@ -61,11 +88,11 @@ class DashboardController extends Controller
     }
 
     public function store_blog(Request $request) {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'description' => 'required',
-        //     'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ]);
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'images' => 'required',
+        ]);
 
         $blog = new BlogImage();
 
@@ -84,7 +111,7 @@ class DashboardController extends Controller
 
         $blog->user_id = $request->id;
         $blog->team_id = Auth::user()->currentTeam->id;
-        $blog->name = $request->name;
+        $blog->title = $request->name;
         $blog->description = $request->description;
 
         $blog->save();
@@ -99,11 +126,10 @@ class DashboardController extends Controller
     }
 
     public function store_catalog(Request $request) {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'description' => 'required',
-        //     'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ]);
+        $request->validate([
+            'name' => 'required',
+            'images' => 'required',
+        ]);
 
         $catalog = new Catalog();
 
@@ -122,7 +148,7 @@ class DashboardController extends Controller
 
         $catalog->user_id = $request->id;
         $catalog->team_id = Auth::user()->currentTeam->id;
-        $catalog->name = $request->name;
+        $catalog->title = $request->name;
 
         $catalog->save();
 
