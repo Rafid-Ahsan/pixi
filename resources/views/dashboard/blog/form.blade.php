@@ -7,7 +7,7 @@
             <div class="w-full">
                 <div class="p-4 border-b-2"> <span class="text-lg font-bold text-gray-600">Add documents</span> </div>
                 <div class="p-3">
-                    <form action="/store_blog/{{ Auth::user()->id }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('blog.store', Auth::user()->id )}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @if ($errors->any())
                             <div>

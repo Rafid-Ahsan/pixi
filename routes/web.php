@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\SingleImageController;
+use App\Http\Controllers\CatalogImageController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,7 @@ use App\Http\Controllers\DashboardController;
 */
 
 // Staring User Routes
-Route::get('/', [UserController::class, 'index']);
+Route::get('/', [UserController::class, 'index'])->name('home');
 
 Route::get('/logout', function () {
     Auth::logout();
@@ -29,20 +31,23 @@ Route::get('/logout', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Dashboard routes
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
 
     // Cover image store route
     Route::post('/store_cover_image', [CoverController::class, 'store']);
 
-    // Add Images route
-    Route::get('/single-image', [DashboardController::class, 'create_single_image'])->name('image.single');
-    Route::post('/store_single_image/{id}', [DashboardController::class, 'store_single_image']);
+    // Single Images Route
+    Route::get('/single-image', [SingleImageController::class, 'create'])->name('single_image.create');
+    Route::post('/store_single_image', [SingleImageController::class, 'store'])->name('single_image.store');
+    Route::get('/all_single_images', [SingleImageController::class, 'show'])->name('single_image.show');
 
-    Route::get('/catalog_image', [DashboardController::class, 'create_catalog_image'])->name('image.catalog');
-    Route::post('/store_catalog/{id}', [DashboardController::class, 'store_catalog']);
+    // Catalog Images Route
+    Route::get('/catalog_image', [CatalogImageController::class, 'create'])->name('catalog.create');
+    Route::post('/store_catalog/{id}', [CatalogImageController::class, 'store'])->name('catalog.store');
 
-    Route::get('/blog', [DashboardController::class, 'create_blog'])->name('image.blog');
-    Route::post('/store_blog/{id}', [DashboardController::class, 'store_blog']);
+    //Blog Route
+    Route::get('/blog', [BlogController::class, 'create'])->name('blog.create');
+    Route::post('/store_blog/{id}', [BlogController::class, 'store'])->name('blog.store');
 });
 
 

@@ -29,25 +29,25 @@
         </div>
     @endif
 	<!--Header-->
-	<div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('{{  $user === null ? asset('uploads/cover/1616942110.jpg')  : asset('uploads/cover/'.$user->image) }}'); height: 60vh; max-height:460px;">
+
+	<div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('{{  is_null($user) ? asset('cover.jpg') : asset('uploads/cover/'.$user->image) }}'); height: 60vh; max-height:460px;">
 			<div class="container max-w-4xl mx-auto pt-16 md:pt-32 text-center break-normal">
 				<!--Title-->
-					<p class="text-white font-extrabold text-3xl md:text-5xl">
-						@auth
-                            {{ Auth::user()->name }}
-                        @else
-                            PIXI
-                        @endauth
-					</p>
-					<p class="text-xl md:text-2xl text-gray-500">
-                        Think | Capture | Innovate
-                    </p>
+                <p class="text-white font-extrabold text-3xl md:text-5xl">
+                    @auth
+                        {{ Auth::user()->name }}
+                    @else
+                        PIXI
+                    @endauth
+                </p>
+                <p class="text-xl md:text-2xl text-gray-500">
+                    Think | Capture | Innovate
+                </p>
 			</div>
-            @if ($user == null)
-            @else
             <div class="md:flex">
                 <div class="w-full p-3">
                     <div class="relative h-8 w-50 rounded-lg flex justify-center items-center my-5">
+                        @auth
                         <form action="/store_cover_image" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="flex text-sm text-gray-600 my-2">
@@ -63,10 +63,10 @@
                                 </label>
                             </div>
                         </form>
+                        @endauth
                     </div>
                 </div>
             </div>
-            @endif
 		</div>
 
 		<!--Container-->
@@ -96,7 +96,7 @@
                     <ul class="list-reset flex justify-center flex-1 md:flex-none items-center">
                     @auth
                         <li>
-                            <a href="{{ url('/dashboard') }}" class="inline-block py-2 px-3 text-gray-900 no-underline">Dashboard</a>
+                            <a href="{{ route('user.dashboard') }}" class="inline-block py-2 px-3 text-gray-900 no-underline">Dashboard</a>
                         </li>
                     @else
                         <li>

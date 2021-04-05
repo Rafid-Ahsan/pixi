@@ -9,11 +9,11 @@ use App\Models\Cover;
 class UserController extends Controller
 {
     public function init_user() {
-        if(Auth::check() == false) {
-            return $user = null;
-        }   else {
+        if(Auth::check()) {
             $user = Cover::where('user_id', Auth::user()->id)->first();
             return $user;
+        }   else {
+            return $user = null;
         }
     }
 

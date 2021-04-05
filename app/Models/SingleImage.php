@@ -11,7 +11,7 @@ class SingleImage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'image',
+        'title', 'description', 'image', 'user_id', 'team_id'
     ];
 
     public function user()
