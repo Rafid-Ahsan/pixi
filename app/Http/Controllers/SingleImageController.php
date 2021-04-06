@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 use App\Models\SingleImage;
 use App\Models\Cover;
@@ -29,9 +30,13 @@ class SingleImageController extends Controller
             'image' => 'required|image',
         ]);
 
-        // Image move to file
-        $imageName = time().'.'. rand(1,1000000) . '.' . $request->image->extension();
-        $request->image->storeAs('single_image', $imageName);
+        $path = "public/uploads/single-image";
+        $image = $request->file('image');
+        if ($image){
+            $imageName=Str::slug($request->name).uniqid().'.'.$image->getClientOriginalExtension();
+            $request->file('image')->storeAs($path,$imageName);
+        }
+
 
         SingleImage::create([
             'title' => $request->input('name'),
@@ -41,7 +46,7 @@ class SingleImageController extends Controller
             'image' => $imageName
         ]);
 
-        return redirect('/dashboard')->with('msg','You have successfully upload image.');
+        return redirect()->route('user.dashboard')->with('msg','You have successfully upload image.');
     }
 
     public function show() {
