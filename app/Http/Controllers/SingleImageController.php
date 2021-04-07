@@ -17,6 +17,12 @@ class SingleImageController extends Controller
         return $user;
     }
 
+    public function init_path() {
+        $path = "public/uploads/single-image";
+
+        return $path;
+    }
+
     public function create() {
         return view('dashboard.single.form', [
             'user'=> $this->init_cover()
@@ -30,13 +36,11 @@ class SingleImageController extends Controller
             'image' => 'required|image',
         ]);
 
-        $path = "public/uploads/single-image";
         $image = $request->file('image');
         if ($image){
             $imageName=Str::slug($request->name).uniqid().'.'.$image->getClientOriginalExtension();
-            $request->file('image')->storeAs($path,$imageName);
+            $request->file('image')->storeAs($this->init_path(),$imageName);
         }
-
 
         SingleImage::create([
             'title' => $request->input('name'),

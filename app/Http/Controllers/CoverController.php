@@ -2,26 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use App\Models\Cover;
 
 class CoverController extends Controller
 {
+    public function init_path() {
+        $path = "public/uploads/cover-image";
+
+        return $path;
+    }
+
+
     public function store(Request $request) {
         $request->validate([
-            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cover_image' => 'required|image',
         ]);
 
-        $cover = new Cover();
-        $imageName = time().'.'.$request->cover_image->extension();
-        $request->cover_image->move(public_path('uploads/cover'), $imageName);
+        $image = $request->file('cover_image');
+        if ($image){
+            $imageName=Str::slug($request->name).uniqid().'.'.$image->getClientOriginalExtension();
+            $request->file('cover_image')->storeAs($this->init_path(),$imageName);
+        }
 
-        $cover->user_id = Auth::user()->id;
-        $cover->image = $imageName;
+        Cover::create([
+            'user_id' => Auth::user()->id,
+            'image' => $imageName
+        ]);
 
-        $cover->save();
-
-        return redirect('/dashboard')->with('msg','You have successfully upload image.');
+        return redirect()->route('user.dashboard')->with('msg','You have successfully upload cover image.');
     }
 }

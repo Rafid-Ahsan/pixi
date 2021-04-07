@@ -10,7 +10,7 @@ class Catalog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'images',
+        'title', 'image', 'user_id', 'team_id'
     ];
 
     public function setFilenamesAttributes($value) {

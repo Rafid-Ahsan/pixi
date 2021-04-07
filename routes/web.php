@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SingleImageController;
 use App\Http\Controllers\CatalogImageController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\OpenImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,9 @@ use App\Http\Controllers\BlogController;
 |
 */
 
-// Staring User Routes
+// End User Routes
 Route::get('/', [UserController::class, 'index'])->name('home');
+Route::get('/open_blog_image/{id}', [OpenImageController::class, 'open_blog_image'])->name('open.blog');
 
 Route::get('/logout', function () {
     Auth::logout();
@@ -36,6 +38,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Cover image store route
     Route::post('/store_cover_image', [CoverController::class, 'store']);
 
+    //Blog Route
+    Route::get('/blog', [BlogController::class, 'create'])->name('blog.create');
+    Route::post('/store_blog/{id}', [BlogController::class, 'store'])->name('blog.store');
+    Route::get('/all_blogs', [BlogController::class, 'show_all'])->name('blog.all');
+    Route::get('/single_blog/{blog}', [BlogController::class, 'show_single'])->name('blog.single');
+    Route::get('/download_blog/{blog}', [BlogController::class, 'download'])->name('blog.download');
+    Route::get('/update_blog/{blog}', [BlogController::class, 'show_update_form'])->name('blog.showUpdateForm');
+    Route::put('/update_blog/{blog}', [BlogController::class, 'update'])->name('blog.update');
+    Route::get('/delete_blog/{id}', [BlogController::class, 'delete'])->name('blog.delete');
+
     // Single Images Route
     Route::get('/single-image', [SingleImageController::class, 'create'])->name('single_image.create');
     Route::post('/store_single_image', [SingleImageController::class, 'store'])->name('single_image.store');
@@ -45,9 +57,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/catalog_image', [CatalogImageController::class, 'create'])->name('catalog.create');
     Route::post('/store_catalog/{id}', [CatalogImageController::class, 'store'])->name('catalog.store');
 
-    //Blog Route
-    Route::get('/blog', [BlogController::class, 'create'])->name('blog.create');
-    Route::post('/store_blog/{id}', [BlogController::class, 'store'])->name('blog.store');
+
 });
 
 

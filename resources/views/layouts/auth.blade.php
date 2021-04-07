@@ -30,58 +30,58 @@
     @endif
 	<!--Header-->
 
-	<div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('{{  is_null($user) ? asset('cover.jpg') : asset('uploads/cover/'.$user->image) }}'); height: 60vh; max-height:460px;">
-			<div class="container max-w-4xl mx-auto pt-16 md:pt-32 text-center break-normal">
-				<!--Title-->
-                <p class="text-white font-extrabold text-3xl md:text-5xl">
+	<div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('{{  is_null($user) ? asset('cover.jpg') : Storage::url('uploads/cover-image/'.$user->image) }}'); height: 60vh; max-height:460px;">
+        <div class="container max-w-4xl mx-auto pt-16 md:pt-32 text-center break-normal">
+            <!--Title-->
+            <p class="text-white font-extrabold text-3xl md:text-5xl">
+                @auth
+                    {{ Auth::user()->name }}
+                @else
+                    PIXI
+                @endauth
+            </p>
+            <p class="text-xl md:text-2xl text-gray-500">
+                Think | Capture | Innovate
+            </p>
+        </div>
+        <div class="md:flex">
+            <div class="w-full p-3">
+                <div class="relative h-8 w-50 rounded-lg flex justify-center items-center my-5">
                     @auth
-                        {{ Auth::user()->name }}
-                    @else
-                        PIXI
-                    @endauth
-                </p>
-                <p class="text-xl md:text-2xl text-gray-500">
-                    Think | Capture | Innovate
-                </p>
-			</div>
-            <div class="md:flex">
-                <div class="w-full p-3">
-                    <div class="relative h-8 w-50 rounded-lg flex justify-center items-center my-5">
-                        @auth
-                        <form action="/store_cover_image" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="flex text-sm text-gray-600 my-2">
-                                <label for="cover_image" class="relative cursor-pointer bg-white w-full p-2 rounded-md font-medium text-grey-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                    <span>Upload Cover Image</span>
-                                    <input id="cover_image" name="cover_image" type="file" class="sr-only">
-                                </label>
-                            </div>
+                    <form action="/store_cover_image" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="flex text-sm text-gray-600 my-2">
+                            <label for="cover_image" class="relative cursor-pointer bg-white w-full p-2 rounded-md font-medium text-grey-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                <span>Upload Cover Image</span>
+                                <input id="cover_image" name="cover_image" type="file" class="sr-only">
+                            </label>
+                        </div>
 
-                            <div class="flex text-sm text-gray-600">
-                                <label for="file-upload" class="relative cursor-pointer bg-white w-full p-2 rounded-md font-medium text-grey-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 items-center">
-                                    <button type="submit" class="bg-white">Submit</button>
-                                </label>
-                            </div>
-                        </form>
-                        @endauth
-                    </div>
+                        <div class="flex text-sm text-gray-600">
+                            <label for="file-upload" class="relative cursor-pointer bg-white w-full p-2 rounded-md font-medium text-grey-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 items-center">
+                                <button type="submit" class="bg-white">Submit</button>
+                            </label>
+                        </div>
+                    </form>
+                    @endauth
                 </div>
             </div>
-		</div>
+        </div>
+    </div>
 
-		<!--Container-->
-		<div class="container px-4 md:px-0 max-w-6xl mx-auto -mt-32">
-			<div class="mx-0 sm:mx-6">
-				<!--Nav-->
-                @auth
-                    @livewire('navigation-menu')
-                @else
-                    @include('guest-navigation')
-                @endauth
+    <!--Container-->
+    <div class="container px-4 md:px-0 max-w-6xl mx-auto -mt-32">
+        <div class="mx-0 sm:mx-6">
+            <!--Nav-->
+            @auth
+                @livewire('navigation-menu')
+            @else
+                @include('guest-navigation')
+            @endauth
 
-                <main>
-                    @yield('content')
-                </main>
+            <main>
+                @yield('content')
+            </main>
 
 	<footer class="bg-white">
 		<div class="container max-w-6xl mx-auto flex items-center px-2 py-8">

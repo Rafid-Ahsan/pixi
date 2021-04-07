@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 use App\Models\Catalog;
 use App\Models\Cover;
@@ -14,6 +15,12 @@ class CatalogImageController extends Controller
         $user = Cover::where('user_id', Auth::user()->id)->first();
 
         return $user;
+    }
+
+    public function init_path() {
+        $path = "public/uploads/catalog-image";
+
+        return $path;
     }
 
     public function create() {
@@ -28,27 +35,23 @@ class CatalogImageController extends Controller
             'images' => 'required',
         ]);
 
-        $catalog = new Catalog();
-
         if($request->hasfile('images'))
         {
             foreach($request->file('images') as $image)
             {
-                $imageName = time().rand(1,100).'.'.$image->extension();
-                $image->move(public_path('uploads/catalog_image'), $imageName);
+                $imageName = Str::slug($request->name).uniqid().'.'.$image->getClientOriginalExtension();
+                $image->storeAs($this->init_path(),$imageName);
                 $images[] = $imageName;
             }
         }
 
-        $catalog->user_id = Auth::user()->id;
-        $catalog->image = json_encode($images);
+        Catalog::create([
+            'title' => $request->input('name'),
+            'user_id' => Auth::user()->id,
+            'team_id' => Auth::user()->currentTeam->id,
+            'image' => json_encode($images)
+        ]);
 
-        $catalog->user_id = $request->id;
-        $catalog->team_id = Auth::user()->currentTeam->id;
-        $catalog->title = $request->name;
-
-        $catalog->save();
-
-        return redirect('/dashboard')->with('msg','You have successfully upload image.');
+        return redirect()->route('user.dashboard')->with('msg','You have successfully upload a catalog.');
     }
 }
