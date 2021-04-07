@@ -34,11 +34,11 @@
         <div class="container max-w-4xl mx-auto pt-16 md:pt-32 text-center break-normal">
             <!--Title-->
             <p class="text-white font-extrabold text-3xl md:text-5xl">
-                @auth
-                    {{ Auth::user()->name }}
+                @if (Route::currentRouteName() == "user.dashboard")
+                    Welcome {{ Auth::user()->name }}
                 @else
                     PIXI
-                @endauth
+                @endif
             </p>
             <p class="text-xl md:text-2xl text-gray-500">
                 Think | Capture | Innovate
@@ -47,23 +47,25 @@
         <div class="md:flex">
             <div class="w-full p-3">
                 <div class="relative h-8 w-50 rounded-lg flex justify-center items-center my-5">
-                    @auth
-                    <form action="/store_cover_image" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="flex text-sm text-gray-600 my-2">
-                            <label for="cover_image" class="relative cursor-pointer bg-white w-full p-2 rounded-md font-medium text-grey-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                <span>Upload Cover Image</span>
-                                <input id="cover_image" name="cover_image" type="file" class="sr-only">
-                            </label>
-                        </div>
+                    @if (Route::currentRouteName() == "user.dashboard")
+                        @auth
+                            <form action="/store_cover_image" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="flex text-sm text-gray-600 my-2">
+                                    <label for="cover_image" class="relative cursor-pointer bg-white w-full p-2 rounded-md font-medium text-grey-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                        <span>Upload Cover Image</span>
+                                        <input id="cover_image" name="cover_image" type="file" class="sr-only">
+                                    </label>
+                                </div>
 
-                        <div class="flex text-sm text-gray-600">
-                            <label for="file-upload" class="relative cursor-pointer bg-white w-full p-2 rounded-md font-medium text-grey-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 items-center">
-                                <button type="submit" class="bg-white">Submit</button>
-                            </label>
-                        </div>
-                    </form>
-                    @endauth
+                                <div class="flex text-sm text-gray-600">
+                                    <label for="file-upload" class="relative cursor-pointer bg-white w-full p-2 rounded-md font-medium text-grey-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 items-center">
+                                        <button type="submit" class="bg-white">Submit</button>
+                                    </label>
+                                </div>
+                            </form>
+                        @endauth
+                    @endif
                 </div>
             </div>
         </div>

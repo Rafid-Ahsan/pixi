@@ -7,7 +7,7 @@
     @if ($catalogs->isEmpty() == false)
         <div class="col-end-7 col-span-2 ...">
             <h2 class="p-5 ml-20 mt-6 text-2xl font-bold leading-7 text-white bg-blue-900 sm:text-xl sm:truncate">
-                <a href="/all_single_images">View All</a>
+                <a href="{{ route('catalog.all') }}">View All</a>
             </h2>
         </div>
     @endif
@@ -25,7 +25,7 @@
             @foreach ($catalogs as $catalog)
             <div class="item mx-6">
                 <div class="my-2 flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-                    <a href="/catalog_image/{{ $catalog->id }}" class="flex flex-wrap no-underline hover:no-underline">
+                    <a href="{{ route('catalog_image.single', $catalog->id)}}" class="flex flex-wrap no-underline hover:no-underline">
                         <img src="{{ Storage::url('uploads/catalog-image/'. head(json_decode($catalog->image))) }}" class="h-64 w-full rounded-t pb-6">
                         <p class="w-full text-gray-600 text-xs md:text-sm px-6">{{ $catalog->name }}</p>
                         <div class="w-full font-bold text-xl text-gray-900 px-6">{{ $catalog->title }}

@@ -51,13 +51,20 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Single Images Route
     Route::get('/single-image', [SingleImageController::class, 'create'])->name('single_image.create');
     Route::post('/store_single_image', [SingleImageController::class, 'store'])->name('single_image.store');
-    Route::get('/all_single_images', [SingleImageController::class, 'show'])->name('single_image.show');
+    Route::get('/all_single_images', [SingleImageController::class, 'show_all'])->name('single.all');
+    Route::get('/single_single_image/{single}', [SingleImageController::class, 'show_single'])->name('single_image.single');
+    Route::get('/update_single_image/{single}', [SingleImageController::class, 'show_update_form'])->name('single.show_update_form');
+    Route::put('/update_single/{single}', [SingleImageController::class, 'update'])->name('single.update');
+    Route::get('/delete_single/{id}', [SingleImageController::class, 'delete'])->name('single.delete');
 
     // Catalog Images Route
     Route::get('/catalog_image', [CatalogImageController::class, 'create'])->name('catalog.create');
     Route::post('/store_catalog/{id}', [CatalogImageController::class, 'store'])->name('catalog.store');
-
-
+    Route::get('/all_catalog_images', [CatalogImageController::class, 'show_all'])->name('catalog.all');
+    Route::get('/single_catalog_image/{catalog}', [CatalogImageController::class, 'show_single'])->name('catalog_image.single');
+    Route::get('/update_catalog_image/{catalog}', [CatalogImageController::class, 'show_update_form'])->name('catalog.show_update_form');
+    Route::put('/update_catalog/{single}', [CatalogImageController::class, 'update'])->name('catalog.update');
+    Route::get('/delete_catalog/{id}', [CatalogImageController::class, 'delete'])->name('catalog.delete');
 });
 
 

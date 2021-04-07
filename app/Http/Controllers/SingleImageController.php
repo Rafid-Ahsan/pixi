@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\SingleImage;
 use App\Models\Cover;
@@ -53,7 +54,70 @@ class SingleImageController extends Controller
         return redirect()->route('user.dashboard')->with('msg','You have successfully upload image.');
     }
 
-    public function show() {
-        return view('dashboard.single.all');
+    public function show_all() {
+        $singles = DB::table('users')
+            ->join('single_images', 'users.id', '=', 'single_images.user_id')
+            ->join('teams', 'single_images.team_id', '=', 'teams.id')
+            ->select('single_images.*', 'users.profile_photo_path', 'users.name', 'teams.name as team_name')
+            ->orderBy('single_images.created_at', 'desc')
+            ->paginate(9);
+
+        return view('dashboard.single.all', [
+            'singles' => $singles,
+            'user'=> $this->init_cover()
+        ]);
+    }
+
+
+
+    public function show_single(SingleImage $single) {
+        return view('dashboard.single.single', [
+            'user' => $this->init_cover(),
+            'single' => $single
+        ]);
+    }
+
+
+
+    // public function download(BlogImage $blog) {
+    //     $path = $this->init_path()."/".head(json_decode($blog->image));
+    //     return response()->download($path);
+
+    // }
+
+
+    public function show_update_form(SingleImage $single) {
+        return view('dashboard.single.updateForm', [
+            'user' => $this->init_cover(),
+            'single' => $single,
+            'teams' => Auth::user()->allTeams()
+        ]);
+    }
+
+
+
+    public function update(Request $request, SingleImage $single) {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
+        $single->update([
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'user_id'=>Auth::user()->id,
+            'team_id' => $request->team_id
+        ]);
+
+        return redirect()->route('single.all')->with('msg','You have successfully update '. $single->title);
+    }
+
+
+
+    public function delete(Request $request) {
+        $single = SingleImage::where('id', $request->id)->first();
+        $single->delete();
+
+        return redirect()->route('single.all')->with('msg','You have successfully Delete ' . $single->title);
     }
 }

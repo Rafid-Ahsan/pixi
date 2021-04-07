@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Catalog;
 use App\Models\Cover;
@@ -17,17 +18,23 @@ class CatalogImageController extends Controller
         return $user;
     }
 
+
+
     public function init_path() {
         $path = "public/uploads/catalog-image";
 
         return $path;
     }
 
+
+
     public function create() {
         return view('dashboard.catalog.form', [
             'user'=> $this->init_cover()
         ]);
     }
+
+
 
     public function store(Request $request) {
         $request->validate([
@@ -53,5 +60,72 @@ class CatalogImageController extends Controller
         ]);
 
         return redirect()->route('user.dashboard')->with('msg','You have successfully upload a catalog.');
+    }
+
+
+
+    public function show_all() {
+        $catalogs = DB::table('users')
+            ->join('catalogs', 'users.id', '=', 'catalogs.user_id')
+            ->join('teams', 'catalogs.team_id', '=', 'teams.id')
+            ->select('catalogs.*', 'users.profile_photo_path', 'users.name', 'teams.name as team_name')
+            ->orderBy('catalogs.created_at', 'desc')
+            ->paginate(9);
+
+        return view('dashboard.catalog.all', [
+            'catalogs' => $catalogs,
+            'user'=> $this->init_cover()
+        ]);
+    }
+
+
+
+    public function show_single(Catalog $catalog) {
+        return view('dashboard.catalog.single', [
+            'user' => $this->init_cover(),
+            'catalog' => $catalog
+        ]);
+    }
+
+
+
+    // public function download(BlogImage $blog) {
+    //     $path = $this->init_path()."/".head(json_decode($blog->image));
+    //     return response()->download($path);
+
+    // }
+
+
+    public function show_update_form(Catalog $catalog) {
+        return view('dashboard.catalog.updateForm', [
+            'user' => $this->init_cover(),
+            'catalog' => $catalog,
+            'teams' => Auth::user()->allTeams()
+        ]);
+    }
+
+
+
+    public function update(Request $request, Catalog $catalog) {
+        $request->validate([
+            'title' => 'required',
+        ]);
+
+        $catalog->update([
+            'title'=>$request->title,
+            'user_id'=>Auth::user()->id,
+            'team_id' => $request->team_id
+        ]);
+
+        return redirect()->route('catalog.all')->with('msg','You have successfully update '. $catalog->title);
+    }
+
+
+
+    public function delete(Request $request) {
+        $catalog = Catalog::findOrFail($request->id);
+        $catalog->delete();
+
+        return redirect()->route('catalog.all')->with('msg','You have successfully Delete ' . $catalog->title);
     }
 }
