@@ -6,6 +6,7 @@
         <div class="md:flex">
             <div class="w-full">
                 <div class="p-4 border-b-2"> <span class="text-lg font-bold text-gray-600">Add documents</span> </div>
+                @include('form_handler.error')
                 <div class="p-3">
                     <form action="{{ route('blog.store', Auth::user()->id )}}" method="post" enctype="multipart/form-data">
                         @csrf
