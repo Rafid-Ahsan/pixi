@@ -7,7 +7,11 @@
     @if ($singles->isEmpty() == false)
         <div class="col-end-7 col-span-2 ...">
             <h2 class="p-5 ml-20 mt-6 text-2xl font-bold leading-7 text-white bg-blue-900 sm:text-xl sm:truncate">
-                <a href="/all_single_images">View All</a>
+                @if (Route::currentRouteName() == "home")
+                    <a href="{{ route('random.single.all') }}">View All</a>
+                @else
+                    <a href="{{ route('single.all') }}">View All</a>
+                @endif
             </h2>
         </div>
     @endif
@@ -25,7 +29,7 @@
         @foreach ($singles as $single)
             <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
                 <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-                    <a href="" class="flex flex-wrap no-underline hover:no-underline">
+                    <a href="{{ route("single_image.single", $single->id) }}" class="flex flex-wrap no-underline hover:no-underline">
                         <img src="{{ Storage::url('uploads/single-image/'.$single->image) }}" class="h-64 w-full rounded-t pb-6">
                         <p class="w-full text-gray-600 text-xs md:text-sm px-6">{{ $single->name }}</p>
                         <div class="w-full font-bold text-xl text-gray-900 px-6">{{ $single->title }}</div>
@@ -36,7 +40,11 @@
                 </div>
                 <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
                     <div class="flex items-center justify-between">
+                        @if ($single->profile_photo_path == null)
+
+                        @else
                         <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ $single->name }}" src="{{ asset('storage/'. $single->profile_photo_path)}}" alt="Avatar of Author">
+                        @endif
                         <p class="text-gray-600 text-xs md:text-sm">{{ $single->team_name }}</p>
                     </div>
                 </div>

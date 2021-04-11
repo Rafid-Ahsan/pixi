@@ -7,7 +7,11 @@
     @if ($catalogs->isEmpty() == false)
         <div class="col-end-7 col-span-2 ...">
             <h2 class="p-5 ml-20 mt-6 text-2xl font-bold leading-7 text-white bg-blue-900 sm:text-xl sm:truncate">
-                <a href="{{ route('catalog.all') }}">View All</a>
+                @if (Route::currentRouteName() == "home")
+                    <a href="{{ route('random.catalog.all') }}">View All</a>
+                @else
+                    <a href="{{ route('catalog.all') }}">View All</a>
+                @endif
             </h2>
         </div>
     @endif

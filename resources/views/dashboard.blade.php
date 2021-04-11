@@ -14,5 +14,5 @@
     @include('dashboard.layouts.catalog')
     <!--/ catalogs section -->
 </div>
-
+</div>
 @endsection

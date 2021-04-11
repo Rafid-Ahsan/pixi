@@ -24,6 +24,12 @@ use App\Http\Controllers\OpenImageController;
 
 // End User Routes
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
+
+// show all routes
+Route::get('rand/blog/all', [WelcomeController::class, 'show_all_blogs'])->name('random.blog.all');
+Route::get('rand/single/all', [WelcomeController::class, 'show_all_singles'])->name('random.single.all');
+Route::get('rand/catalog/all', [WelcomeController::class, 'show_all_catalogs'])->name('random.catalog.all');
+
 Route::get('/open_blog_image/{id}', [OpenImageController::class, 'open_blog_image'])->name('open.blog');
 
 Route::get('/logout', function () {

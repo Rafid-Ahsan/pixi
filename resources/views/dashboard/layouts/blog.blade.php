@@ -23,10 +23,19 @@
 
                 <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
                     <div class="flex items-center justify-between">
+                        @if ($blog->profile_photo_path == null)
+
+                        @else
                         <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ $blog->name }}" src="{{ asset('storage/'. $blog->profile_photo_path)}}" alt="Avatar of Author">
+                        @endif
                         <p class="text-gray-600 text-xs md:text-sm">{{ $blog->team_name }}</p>
                     </div>
-                    <a class="text-blue-800" href="{{ route('blog.all') }}">Show All Blogs</a>
+
+                    @if (Route::currentRouteName() == "home")
+                        <a class="text-blue-800" href="{{ route('random.blog.all') }}">Show All Blogs</a>
+                    @else
+                        <a class="text-blue-800" href="{{ route('blog.all') }}">Show All Blogs</a>
+                    @endif
                 </div>
             </div>
         </a>

@@ -33,12 +33,18 @@
                             <p class="text-gray-600 text-xs md:text-sm">{{ $catalog->team_name }}</p>
                         </div>
                     </div>
-                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
-                        <div class="flex items-center justify-between">
-                            <a href="{{ route('catalog.show_update_form', $catalog->id) }}" class="bg-blue-800 text-white p-3 text-xs md:text-sm">Update</a>
-                            <a href="{{ route('catalog.delete', $catalog->id) }}" class="bg-red-800 text-white p-3 text-xs md:text-sm">Delete</a>
-                        </div>
-                    </div>
+                    @auth
+                        @if ($catalog->user_id == Auth::user()->id)
+                            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                                <div class="flex items-center justify-between">
+                                    <a href="{{ route('catalog.show_update_form', $catalog->id) }}" class="bg-blue-800 text-white p-3 text-xs md:text-sm">Update</a>
+                                    <a href="{{ route('catalog.delete', $catalog->id) }}" class="bg-red-800 text-white p-3 text-xs md:text-sm">Delete</a>
+                                </div>
+                            </div>
+                        @else
+
+                        @endif
+                    @endauth
                 </div>
 
         </div>
