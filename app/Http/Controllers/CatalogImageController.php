@@ -68,6 +68,7 @@ class CatalogImageController extends Controller
         $catalogs = DB::table('users')
             ->join('catalogs', 'users.id', '=', 'catalogs.user_id')
             ->join('teams', 'catalogs.team_id', '=', 'teams.id')
+            ->where('users.id', Auth::user()->id)
             ->select('catalogs.*', 'users.profile_photo_path', 'users.name', 'teams.name as team_name')
             ->orderBy('catalogs.created_at', 'desc')
             ->paginate(9);
@@ -106,14 +107,15 @@ class CatalogImageController extends Controller
 
 
 
-    public function update(Request $request, Catalog $catalog) {
+    public function update(Request $request) {
+        $catalog = Catalog::where('id', $request->id)->first();
+
         $request->validate([
-            'title' => 'required',
+            'title' => 'required'
         ]);
 
         $catalog->update([
             'title'=>$request->title,
-            'user_id'=>Auth::user()->id,
             'team_id' => $request->team_id
         ]);
 

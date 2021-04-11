@@ -69,6 +69,7 @@ class BlogController extends Controller
         $blogs = DB::table('users')
             ->join('blog_images', 'users.id', '=', 'blog_images.user_id')
             ->join('teams', 'blog_images.team_id', '=', 'teams.id')
+            ->where('users.id', Auth::user()->id)
             ->select('blog_images.*', 'users.profile_photo_path', 'users.name', 'teams.name as team_name')
             ->orderBy('blog_images.created_at', 'desc')
             ->paginate(9);

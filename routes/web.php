@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SingleImageController;
@@ -23,7 +23,7 @@ use App\Http\Controllers\OpenImageController;
 */
 
 // End User Routes
-Route::get('/', [UserController::class, 'index'])->name('home');
+Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/open_blog_image/{id}', [OpenImageController::class, 'open_blog_image'])->name('open.blog');
 
 Route::get('/logout', function () {
@@ -63,7 +63,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/all_catalog_images', [CatalogImageController::class, 'show_all'])->name('catalog.all');
     Route::get('/single_catalog_image/{catalog}', [CatalogImageController::class, 'show_single'])->name('catalog_image.single');
     Route::get('/update_catalog_image/{catalog}', [CatalogImageController::class, 'show_update_form'])->name('catalog.show_update_form');
-    Route::put('/update_catalog/{single}', [CatalogImageController::class, 'update'])->name('catalog.update');
+    Route::put('/update_catalog/{id}', [CatalogImageController::class, 'update'])->name('catalog.update');
     Route::get('/delete_catalog/{id}', [CatalogImageController::class, 'delete'])->name('catalog.delete');
 });
 

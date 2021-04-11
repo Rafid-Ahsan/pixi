@@ -14,7 +14,7 @@ class Catalog extends Model
     ];
 
     public function setFilenamesAttributes($value) {
-        $this->attributes['images'] = json_encode($value);
+        $this->attributes['image'] = json_encode($value);
     }
 
     public function users()

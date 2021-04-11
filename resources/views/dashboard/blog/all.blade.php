@@ -33,7 +33,7 @@
                     <div class="flex items-center justify-between">
                         <a href="{{ route('blog.showUpdateForm', $blog->id) }}" class="bg-blue-800 text-white p-3 text-xs md:text-sm">Update</a>
                         {{-- <a href="{{ route('blog.download', $blog->id) }}" class="bg-green-800 text-white p-3 text-xs md:text-sm">Downlaod</a> --}}
-                        <a href="{{ route('single.delete', $single->id) }}" class="bg-red-800 text-white p-3 text-xs md:text-sm">Delete</a>
+                        <a href="{{ route('blog.delete', $blog->id) }}" class="bg-red-800 text-white p-3 text-xs md:text-sm">Delete</a>
                     </div>
                 </div>
             </div>

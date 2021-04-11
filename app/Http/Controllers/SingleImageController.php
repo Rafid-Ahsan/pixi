@@ -58,6 +58,7 @@ class SingleImageController extends Controller
         $singles = DB::table('users')
             ->join('single_images', 'users.id', '=', 'single_images.user_id')
             ->join('teams', 'single_images.team_id', '=', 'teams.id')
+            ->where('users.id', Auth::user()->id)
             ->select('single_images.*', 'users.profile_photo_path', 'users.name', 'teams.name as team_name')
             ->orderBy('single_images.created_at', 'desc')
             ->paginate(9);
