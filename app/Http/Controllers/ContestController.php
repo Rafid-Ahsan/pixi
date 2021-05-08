@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ContestController extends Controller
@@ -54,8 +55,11 @@ class ContestController extends Controller
     }
 
     public function personal(Contest $contest) {
+        $user = User::where('id', $contest->user_id)->first();
+
         return view('contest.single', [
-            'contest' => $contest
+            'contest' => $contest,
+            'user' => $user
         ]);
     }
 

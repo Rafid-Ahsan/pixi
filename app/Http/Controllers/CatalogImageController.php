@@ -90,13 +90,6 @@ class CatalogImageController extends Controller
 
 
 
-    // public function download(BlogImage $blog) {
-    //     $path = $this->init_path()."/".head(json_decode($blog->image));
-    //     return response()->download($path);
-
-    // }
-
-
     public function show_update_form(Catalog $catalog) {
         return view('dashboard.catalog.updateForm', [
             'user' => $this->init_cover(),

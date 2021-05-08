@@ -13,7 +13,7 @@
     <div class="flex content-center flex-wrap justify-between pt-2 -mx-6">
         <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
             <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-                @include('form_handler.error')
+                @include('alert.form-validation')
                 <form method="post" action="{{ route('blog.update', $blog->id) }}" class="block p-5">
                     @csrf
                     @method('PUT')

@@ -11,6 +11,7 @@ use App\Http\Controllers\SingleImageController;
 use App\Http\Controllers\CatalogImageController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContestController;
+use App\Http\Controllers\ContestUploadController;
 use App\Http\Controllers\OpenImageController;
 
 /*
@@ -80,9 +81,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('show/personal/contest/{contest}', [ContestController::class, 'personal'])->name('contest.personal');
     Route::resource('contest', ContestController::class);
 
+    //contest upload routes
+    Route::post('/contest/upload/{contest_id}/{publisher_id}/{participator_id}', [ContestUploadController::class, 'store'])->name('contest.upload');
+
     // Admin routes
     Route::group(['middleware' => ['can:see admin panel']], function () {
-        Route::get('/admin', [AdminController::class, 'index']);
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     });
 });
 

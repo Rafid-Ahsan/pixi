@@ -79,14 +79,6 @@ class SingleImageController extends Controller
     }
 
 
-
-    // public function download(BlogImage $blog) {
-    //     $path = $this->init_path()."/".head(json_decode($blog->image));
-    //     return response()->download($path);
-
-    // }
-
-
     public function show_update_form(SingleImage $single) {
         return view('dashboard.single.updateForm', [
             'user' => $this->init_cover(),
