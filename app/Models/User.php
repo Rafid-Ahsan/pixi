@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 use App\Models\SingleImage;
 use App\Models\Cover;
@@ -24,6 +25,7 @@ class User extends Authenticatable
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -82,5 +84,10 @@ class User extends Authenticatable
     public function catalog()
     {
         return $this->belongsTo(Catalog::class);
+    }
+
+    public function contest()
+    {
+        return $this->hasOne(Contest::class);
     }
 }

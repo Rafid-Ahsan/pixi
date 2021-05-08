@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SingleImageController;
 use App\Http\Controllers\CatalogImageController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContestController;
 use App\Http\Controllers\OpenImageController;
 
 /*
@@ -36,6 +38,7 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('/');
 });
+
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Dashboard routes
@@ -71,6 +74,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/update_catalog_image/{catalog}', [CatalogImageController::class, 'show_update_form'])->name('catalog.show_update_form');
     Route::put('/update_catalog/{id}', [CatalogImageController::class, 'update'])->name('catalog.update');
     Route::get('/delete_catalog/{id}', [CatalogImageController::class, 'delete'])->name('catalog.delete');
+
+    //contest routes
+    Route::post('create/contest/{id}', [ContestController::class, 'store'])->name('contest.store.id');
+    Route::get('show/personal/contest/{contest}', [ContestController::class, 'personal'])->name('contest.personal');
+    Route::resource('contest', ContestController::class);
+
+    // Admin routes
+    Route::group(['middleware' => ['can:see admin panel']], function () {
+        Route::get('/admin', [AdminController::class, 'index']);
+    });
 });
 
 
