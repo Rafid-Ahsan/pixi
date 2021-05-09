@@ -53,15 +53,18 @@
                       <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
                           <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                          <a href="{{ route('admin.index') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                          <a href="{{ route('admin.index') }}" class="{{ Route::currentRouteName() == "admin.index" ? ' bg-gray-900' : '' }} text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
 
-                          <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
+                          <a href="{{ route('admin.team.index') }}" class="{{ Route::currentRouteName() == "admin.team.index" ? ' bg-gray-900' : '' }} text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
 
-                          <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Images</a>
+                          <a href="{{ route('admin.images.index') }}" class="{{ Route::currentRouteName() == "admin.images.index" ? ' bg-gray-900' : '' }} text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Images</a>
 
-                          <a href="{{ route('admin.contest.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contest</a>
-
-                          <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Reports</a>
+                          <a href="{{ route('admin.contest.index') }}" class="{{ Route::currentRouteName() == "admin.contest.index" ? ' bg-gray-900' : '' }} text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                            Contest
+                            @if ($not_approved_contest_value > 0)
+                            <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $not_approved_contest_value }}</span>
+                            @endif
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -98,15 +101,13 @@
                 <div class="md:hidden" id="mobile-menu">
                   <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                    <a href="{{ route('admin.index') }}" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+                    <a href="{{ route('admin.index') }}" class="{{ Route::currentRouteName() == "admin.index" ? ' bg-gray-900' : '' }} text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
 
-                    <a href="" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
+                          <a href="{{ route('admin.team.index') }}" class="{{ Route::currentRouteName() == "admin.team.index" ? ' bg-gray-900' : '' }} text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
 
-                    <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Images</a>
+                          <a href="{{ route('admin.images.index') }}" class="{{ Route::currentRouteName() == "admin.images.index" ? ' bg-gray-900' : '' }} text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Images</a>
 
-                    <a href="{{ route('admin.contest.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contest</a>
-
-                    <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Reports</a>
+                          <a href="{{ route('admin.contest.index') }}" class="{{ Route::currentRouteName() == "admin.contest.index" ? ' bg-gray-900' : '' }} text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contest</a>
                   </div>
                   <div class="pt-4 pb-3 border-t border-gray-700">
                     <div class="flex items-center px-5">

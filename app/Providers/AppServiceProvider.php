@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\View\Composers\UserComposer;
+use App\Models\Contest;
 use App\Models\Cover;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::share('not_approved_contest_value', count(Contest::where('status', 'Not Approved')->get()));
 
     }
 }

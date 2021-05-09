@@ -15,7 +15,11 @@ class ContestController extends Controller
      */
     public function index()
     {
-        return view('contest.index');
+        $contests = Contest::where('status', 'Approved')->paginate(10);
+
+        return view('contest.index', [
+            'contests' => $contests
+        ]);
     }
 
     /**

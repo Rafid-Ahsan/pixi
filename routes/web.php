@@ -93,6 +93,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
         //Admin contest routes
         Route::get('/admin/contest', [AdminContestController::class, 'index'])->name('admin.contest.index');
+        Route::put('/admin/contest/status-update/{contest}', [AdminContestController::class, 'update_status'])->name('admin.contest.status_update');
+        Route::get('/admin/contest/delete/{contest}', [AdminContestController::class, 'delete'])->name('admin.contest.delete');
 
         //Team routes
         Route::get('/team', [TeamController::class, 'index'])->name('admin.team.index');

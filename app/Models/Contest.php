@@ -18,8 +18,8 @@ class Contest extends Model
         'status'
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->hasOne(User::class);
+        return $this->hasMany(User::class);
     }
 }

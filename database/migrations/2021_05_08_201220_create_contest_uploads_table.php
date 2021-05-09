@@ -19,7 +19,7 @@ class CreateContestUploadsTable extends Migration
             $table->foreignId('publisher_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('participator_id')->constrained('users')->onDelete('cascade');
             $table->text('image');
-            $table->enum('status', ['first_prize', 'second_prize', 'no prize'])->default('no prize');
+            $table->enum('status', ['unseen', 'first_prize', 'second_prize', 'no prize'])->default('unseen');
             $table->timestamps();
         });
     }
