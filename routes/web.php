@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminContestController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminImageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,6 +15,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContestController;
 use App\Http\Controllers\ContestUploadController;
 use App\Http\Controllers\OpenImageController;
+use App\Http\Controllers\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +90,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Admin routes
     Route::group(['middleware' => ['can:see admin panel']], function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+
+        //Admin contest routes
+        Route::get('/admin/contest', [AdminContestController::class, 'index'])->name('admin.contest.index');
+
+        //Team routes
+        Route::get('/team', [TeamController::class, 'index'])->name('admin.team.index');
+
+        //Admin Images routes
+        Route::get('/admin/images', [AdminImageController::class, 'index'])->name('admin.images.index');
     });
 });
 
