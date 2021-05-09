@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContestUpload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ContestUploadController extends Controller
@@ -37,6 +38,37 @@ class ContestUploadController extends Controller
 
             return redirect()->route('contest.index')->with('success', 'Successfully Uploaded Pic on this Contest');
         }
+    }
 
+    public function submissions(Request $request) {
+        $contest = ContestUpload::where('contest_id', $request->id)->first();
+
+        $participants = DB::table('users')
+            ->join('contest_uploads', 'users.id', '=', 'contest_uploads.participator_id')
+            ->select('contest_uploads.id as image_id', 'users.*', 'contest_uploads.*')
+            ->get();
+
+        return view('contest.submissions', [
+            'contest' => $contest,
+            'participants' => $participants
+        ]);
+    }
+
+    public function show_image(Request $request) {
+        $contest = ContestUpload::where('id', $request->id)->first();
+
+        return view('contest.image', [
+            'contest' => $contest
+        ]);
+    }
+
+    public function update_status(Request $request) {
+        $contest = ContestUpload::where('id', $request->id)->first();
+
+        $contest->update([
+            'status' => $request->status
+        ]);
+
+        return redirect()->route('contest.index')->with('success', 'You have Changed the status');
     }
 }

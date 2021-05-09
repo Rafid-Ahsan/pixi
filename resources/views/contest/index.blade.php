@@ -23,7 +23,6 @@
         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
-              @foreach ($contests as $contest)
               <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Title
@@ -40,6 +39,7 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
+            @foreach ($contests as $contest)
               <tr>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm text-gray-900">{{ $contest->name }}</div>
@@ -51,7 +51,18 @@
                     <div class="text-sm text-gray-900">{{ $contest->second_prize }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <a href="{{ route('contest.personal', $contest->id) }}" class="text-indigo-600 hover:text-indigo-900">See More</a>
+                    @if ($contest->uploads->publisher_id == Auth::user()->id)
+                        <a href="{{ route('contest.uploads.submissions', $contest->id) }}" class="text-indigo-600 hover:text-indigo-900">
+                            Check Submissions
+                            <span class=" ml-2 inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $unseen_contest_uploads }}</span>
+                        </a>
+                    @elseif ($contest->uploads->participator_id == Auth::user()->id)
+                    <a href="{{ route('contest.uploads.submissions', $contest->id) }}" class="text-indigo-600 hover:text-indigo-900">
+                        Check Result
+                        <span class=" ml-2 inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $unseen_contest_uploads }}</span>
+                    @else
+                        <a href="{{ route('contest.personal', $contest->id) }}" class="text-indigo-600 hover:text-indigo-900">See More</a>
+                    @endif
                 </td>
               </tr>
               @endforeach

@@ -16,6 +16,7 @@ use App\Http\Controllers\ContestController;
 use App\Http\Controllers\ContestUploadController;
 use App\Http\Controllers\OpenImageController;
 use App\Http\Controllers\TeamController;
+use App\Models\ContestUpload;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     //contest upload routes
     Route::post('/contest/upload/{contest_id}/{publisher_id}/{participator_id}', [ContestUploadController::class, 'store'])->name('contest.upload');
+    Route::get('/contest/uploads/submissions/{id}', [ContestUploadController::class, 'submissions'])->name('contest.uploads.submissions');
+    Route::get('/uploads/contest/picture/{id}', [ContestUploadController::class, 'show_image'])->name('contest.image.show');
+    Route::put('/uploads/contest/status/update/{id}', [ContestUploadController::class, 'update_status'])->name('contest.uploads.status_update');
 
     // Admin routes
     Route::group(['middleware' => ['can:see admin panel']], function () {

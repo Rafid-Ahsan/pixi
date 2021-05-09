@@ -13,6 +13,11 @@ class ContestUpload extends Model
         'image',
         'contest_id',
         'publisher_id',
-        'participator_id'
+        'participator_id',
+        'status'
     ];
+
+    public function users() {
+        $this->hasMany(Users::class);
+    }
 }

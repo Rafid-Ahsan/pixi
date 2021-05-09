@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contest;
+use App\Models\ContestUpload;
 use App\Models\User;
 use Illuminate\Http\Request;
 

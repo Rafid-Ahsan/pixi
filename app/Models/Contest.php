@@ -22,4 +22,8 @@ class Contest extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function uploads() {
+        return $this->hasOne(ContestUpload::class);
+    }
 }
