@@ -82,13 +82,16 @@
                     </form>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                   {{ $contest->first_prize }}
+                   {{ $contest->first_prize }}TK
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ $contest->second_prize }}
+                    {{ $contest->second_prize }}TK
                  </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <a href="{{ route('admin.contest.delete', $contest->id) }}" class="text-red-600 hover:text-red-900">Delete</a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-indigo-500">
+                    <a href="{{ route('contest.uploads.submissions', $contest->id) }}">Check Results</a>
                 </td>
               </tr>
               @endforeach

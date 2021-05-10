@@ -51,18 +51,24 @@
                     <div class="text-sm text-gray-900">{{ $contest->second_prize }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    @if ($contest->uploads->publisher_id == Auth::user()->id)
-                        <a href="{{ route('contest.uploads.submissions', $contest->id) }}" class="text-indigo-600 hover:text-indigo-900">
-                            Check Submissions
-                            <span class=" ml-2 inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $unseen_contest_uploads }}</span>
-                        </a>
-                    @elseif ($contest->uploads->participator_id == Auth::user()->id)
-                    <a href="{{ route('contest.uploads.submissions', $contest->id) }}" class="text-indigo-600 hover:text-indigo-900">
-                        Check Result
-                        <span class=" ml-2 inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $unseen_contest_uploads }}</span>
-                    @else
-                        <a href="{{ route('contest.personal', $contest->id) }}" class="text-indigo-600 hover:text-indigo-900">See More</a>
-                    @endif
+
+                    @foreach ($contest->uploads as $contest)
+                        @if ($contest->publisher_id == Auth::user()->id)
+                            <a href="{{ route('contest.uploads.submissions', $contest->contest_id) }}" class="text-indigo-600 hover:text-indigo-900">
+                                Check Submissions
+                                <span class=" ml-2 inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $unseen_contest_uploads }}</span>
+                                @break
+                            </a>
+                        @elseif ($contest->participator_id == Auth::user()->id)
+                            <a href="{{ route('contest.uploads.submissions', $contest->contest_id) }}" class="text-indigo-600 hover:text-indigo-900">
+                                Check Result
+                                <span class=" ml-2 inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $unseen_contest_uploads }}</span>
+                            @break
+                        @else
+                            <a href="{{ route('contest.personal', $contest->contest_id) }}" class="text-indigo-600 hover:text-indigo-900">See More</a>
+                            @break
+                        @endif
+                    @endforeach
                 </td>
               </tr>
               @endforeach

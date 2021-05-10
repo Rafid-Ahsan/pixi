@@ -63,7 +63,7 @@ class ContestUploadController extends Controller
     }
 
     public function update_status(Request $request) {
-        $contest = ContestUpload::where('id', $request->id)->first();
+        $contest = ContestUpload::where('participator_id', $request->id)->first();
 
         $contest->update([
             'status' => $request->status

@@ -20,9 +20,13 @@
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Image
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Action
-                </th>
+                @foreach ($participants as $participant)
+                    @if ($participant->publisher_id == Auth::user()->id)
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Action
+                        </th>
+                    @endif
+                @endforeach
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                 </th>
@@ -42,18 +46,20 @@
                         <img src="{{ Storage::url('uploads/contest/'. $participant->image) }}" style="height: 60px">
                     </a>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <form action="{{ route('contest.uploads.status_update', $contest->id)}}" method="post" class="mt-1">
-                        @csrf
-                        @method('put')
-                        <select name="status" class="border-none" onchange='if(this.value != 0) { this.form.submit(); }'>>
-                            <option value="unseen">Unseen</option>
-                            <option value="first_prize">First Prize</option>
-                            <option value="second_prize">Second Prize</option>
-                            <option value="no_prize">No Prize</option>
-                        </select>
-                    </form>
-                </td>
+                @if ($participant->publisher_id == Auth::user()->id)
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <form action="{{ route('contest.uploads.status_update', $participant->participator_id)}}" method="post" class="mt-1">
+                            @csrf
+                            @method('put')
+                            <select name="status" class="border-none" onchange='if(this.value != 0) { this.form.submit(); }'>>
+                                <option value="unseen">Unseen</option>
+                                <option value="first_prize">First Prize</option>
+                                <option value="second_prize">Second Prize</option>
+                                <option value="no_prize">No Prize</option>
+                            </select>
+                        </form>
+                    </td>
+                @endif
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm text-gray-900">{{ $participant->status }}</div>
                 </td>
