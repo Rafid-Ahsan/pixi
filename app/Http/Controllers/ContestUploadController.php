@@ -45,7 +45,7 @@ class ContestUploadController extends Controller
 
         $participants = DB::table('users')
             ->join('contest_uploads', 'users.id', '=', 'contest_uploads.participator_id')
-            ->select('contest_uploads.id as image_id', 'users.*', 'contest_uploads.*')
+            ->select('contest_uploads.id as image_id', 'users.id as user_id', 'users.*', 'contest_uploads.*')
             ->get();
 
         return view('contest.submissions', [

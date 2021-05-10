@@ -68,7 +68,7 @@ class User extends Authenticatable
 
     public function cover()
     {
-        return $this->belongsTo(Cover::class);
+        return $this->hasOne(Cover::class);
     }
 
     public function single_image()

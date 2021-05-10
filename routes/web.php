@@ -15,8 +15,8 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContestController;
 use App\Http\Controllers\ContestUploadController;
 use App\Http\Controllers\OpenImageController;
+use App\Http\Controllers\publisherProfileController;
 use App\Http\Controllers\TeamController;
-use App\Models\ContestUpload;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,6 +102,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
         //Team routes
         Route::get('/team', [TeamController::class, 'index'])->name('admin.team.index');
+        Route::put('/team/update/role/{user}', [TeamController::class, 'update'])->name('admin.team.update');
+        Route::get('/team/delete/{user}', [TeamController::class, 'delete'])->name('admin.team.delete');
 
         //Admin Images routes
         Route::get('/admin/images', [AdminImageController::class, 'index'])->name('admin.images.index');
