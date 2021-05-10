@@ -19,6 +19,7 @@ class CreateCatalogsTable extends Migration
             $table->unsignedBigInteger('team_id');
             $table->string('title');
             $table->text('image');
+            $table->string('label')->default('Catalog');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

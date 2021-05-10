@@ -31,9 +31,9 @@ class AppServiceProvider extends ServiceProvider
     {
         View::share('not_approved_contest_value', count(Contest::where('status', 'Not Approved')->get()));
 
-        view()->composer('*', function ($view) {
-            $unseen_contest_uploads = count(ContestUpload::where('publisher_id', Auth::user()->id)->where('status', 'unseen')->get());
-            $view->with('unseen_contest_uploads', $unseen_contest_uploads );
-        });
+        // view()->composer('*', function ($view) {
+        //     $unseen_contest_uploads = count(ContestUpload::where('publisher_id', Auth::user()->id)->where('status', 'unseen')->get());
+        //     $view->with('unseen_contest_uploads', $unseen_contest_uploads );
+        // });
     }
 }

@@ -20,6 +20,7 @@ class CreateSingleImagesTable extends Migration
             $table->string('title');
             $table->string('description')->nullable()->default('This is a beatiful Image');
             $table->text('image');
+            $table->string('label')->default('Single Image');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

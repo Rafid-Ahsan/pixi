@@ -8,7 +8,6 @@
                 <div class="p-4 border-b-2"> <span class="text-lg font-bold text-gray-600">Add documents</span> </div>
                 <div class="p-3">
                     <form action="{{ route('single_image.store') }}" method="post" enctype="multipart/form-data">
-                        @include('form_handler.error')
                         @csrf
                         <div class="mb-2">
                             <span class="text-sm">Name</span>

@@ -18,9 +18,6 @@
                     @auth
                         <x-jet-nav-link href="{{ route('contest.index') }}" :active="request()->routeIs('contest.index')">
                             Contest
-                            @if ($unseen_contest_uploads > 0)
-                                <span class=" ml-2 inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $unseen_contest_uploads }}</span>
-                            @endif
                         </x-jet-nav-link>
                     @endauth
                 </div>
