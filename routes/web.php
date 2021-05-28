@@ -109,5 +109,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/admin/images', [AdminImageController::class, 'index'])->name('admin.images.index');
     });
 });
+// asd
 
 
