@@ -42,7 +42,9 @@
                                 </div>
                             </div>
                         @else
-
+                            <div class="flex items-center justify-between">
+                                <a href="#" class="bg-blue-800 text-white p-3 text-xs md:text-sm">Order - {{ $catalog->price }}TK</a>
+                            </div>
                         @endif
                     @endauth
                 </div>

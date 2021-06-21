@@ -41,6 +41,7 @@ class BlogController extends Controller
             'name' => 'required',
             'description' => 'required',
             'images' => 'required',
+            'price' => 'required'
         ]);
 
         if($request->hasfile('images'))
@@ -58,7 +59,8 @@ class BlogController extends Controller
             'description' => $request->input('description'),
             'user_id' => Auth::user()->id,
             'team_id' => Auth::user()->currentTeam->id,
-            'image' => json_encode($images)
+            'image' => json_encode($images),
+            'price' => $request->price
         ]);
 
         return redirect()->route('user.dashboard')->with('msg','You have successfully upload a blog.');

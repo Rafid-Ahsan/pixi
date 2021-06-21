@@ -32,11 +32,6 @@ use App\Http\Controllers\TeamController;
 // End User Routes
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 
-// show all routes
-Route::get('rand/blog/all', [WelcomeController::class, 'show_all_blogs'])->name('random.blog.all');
-Route::get('rand/single/all', [WelcomeController::class, 'show_all_singles'])->name('random.single.all');
-Route::get('rand/catalog/all', [WelcomeController::class, 'show_all_catalogs'])->name('random.catalog.all');
-
 Route::get('/open_blog_image/{id}', [OpenImageController::class, 'open_blog_image'])->name('open.blog');
 
 Route::get('/logout', function () {
@@ -44,10 +39,20 @@ Route::get('/logout', function () {
     return redirect('/');
 });
 
+Route::get('/order', function() {
+    return view('order');
+});
+
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Dashboard routes
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
+
+
+    // show all routes
+    Route::get('rand/blog/all', [WelcomeController::class, 'show_all_blogs'])->name('random.blog.all');
+    Route::get('rand/single/all', [WelcomeController::class, 'show_all_singles'])->name('random.single.all');
+    Route::get('rand/catalog/all', [WelcomeController::class, 'show_all_catalogs'])->name('random.catalog.all');
 
     // Cover image store route
     Route::post('/store_cover_image', [CoverController::class, 'store']);

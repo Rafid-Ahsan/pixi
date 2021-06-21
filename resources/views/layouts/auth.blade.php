@@ -22,7 +22,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
 
 </head>
-<body class="bg-gray-200 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
     @if (session('msg'))
         <div class="mb-4 font-medium text-sm text-green-600">
             {{ session('msg') }}

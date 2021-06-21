@@ -40,6 +40,7 @@ class CatalogImageController extends Controller
         $request->validate([
             'name' => 'required',
             'images' => 'required',
+            'price' => 'required'
         ]);
 
         if($request->hasfile('images'))
@@ -56,7 +57,8 @@ class CatalogImageController extends Controller
             'title' => $request->input('name'),
             'user_id' => Auth::user()->id,
             'team_id' => Auth::user()->currentTeam->id,
-            'image' => json_encode($images)
+            'image' => json_encode($images),
+            'price' => $request->price
         ]);
 
         return redirect()->route('user.dashboard')->with('msg','You have successfully upload a catalog.');

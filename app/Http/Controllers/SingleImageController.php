@@ -35,6 +35,7 @@ class SingleImageController extends Controller
             'name' => 'required',
             'description' => 'nullable',
             'image' => 'required|image',
+            'price' => 'required'
         ]);
 
         $image = $request->file('image');
@@ -48,7 +49,8 @@ class SingleImageController extends Controller
             'description' => $request->input('description'),
             'user_id' => Auth::user()->id,
             'team_id' => Auth::user()->currentTeam->id,
-            'image' => $imageName
+            'image' => $imageName,
+            'price' => $request->price
         ]);
 
         return redirect()->route('user.dashboard')->with('msg','You have successfully upload image.');

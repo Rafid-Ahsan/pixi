@@ -40,6 +40,9 @@
                             <p class="text-gray-600 text-xl md:text-sm">{{ $blog->team_name }}</p>
                         </div>
                     </div>
+                    <div class="flex items-center justify-between">
+                        <a href="/order" class="bg-blue-800 text-white p-3 text-xs md:text-sm">Order - {{ $blog->price }}TK</a>
+                    </div>
                     @auth
                         @if ($blog->user_id == Auth::user()->id)
                             <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">

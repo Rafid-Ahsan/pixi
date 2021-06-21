@@ -20,6 +20,7 @@ class CreateBlogImagesTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->text('image');
+            $table->string('price');
             $table->string('label')->default('Blog Image');
             $table->timestamps();
 

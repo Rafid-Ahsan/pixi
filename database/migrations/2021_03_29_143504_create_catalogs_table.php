@@ -20,6 +20,7 @@ class CreateCatalogsTable extends Migration
             $table->string('title');
             $table->text('image');
             $table->string('label')->default('Catalog');
+            $table->string('price');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

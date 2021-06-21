@@ -20,7 +20,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
 
 </head>
-<body class="bg-gray-200 font-sans leading-normal tracking-normal">
+<body class="bg-gray-50 font-sans leading-normal tracking-normal">
 
 	<!--Header-->
 	<div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('cover.jpg'); height: 60vh; max-height:460px;">

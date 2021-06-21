@@ -29,6 +29,9 @@
                         <p class="text-gray-600 text-xs md:text-sm">{{ $single->team_name }}</p>
                     </div>
                 </div>
+                <div class="flex items-center justify-between">
+                    <a href="#" class="bg-blue-800 text-white p-3 text-xs md:text-sm">Order - {{ $single->price }}TK</a>
+                </div>
                 @auth
                     @if ($single->user_id == Auth::user()->id)
                         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">

@@ -26,6 +26,10 @@
                             <span class="text-sm">Description</span>
                             <textarea name="description" :value="old('description')" class="h-12 px-3 w-full border-gray-200 border rounded focus:outline-none focus:border-gray-300" cols="30"  rows="10" required></textarea>
                         </div>
+                        <div class="mb-2">
+                            <span class="text-sm">Price</span>
+                            <input type="text" name="price" :value="old('price')" required autofocus class="h-12 px-3 w-full border-gray-200 border rounded focus:outline-none focus:border-gray-300">
+                        </div>
                         <div class="mb-2 hdtuto clone ">
                             <span>Attachments</span>
                             <div class="relative h-40 rounded-lg border-dashed border-2 border-gray-200 bg-white flex justify-center items-center hover:cursor-pointer lst increment" >

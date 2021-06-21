@@ -12,7 +12,7 @@ class BlogImage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'image', 'user_id', 'team_id'
+        'title', 'description', 'image', 'user_id', 'team_id', 'price'
     ];
 
     public function setFilenamesAttributes($value) {
